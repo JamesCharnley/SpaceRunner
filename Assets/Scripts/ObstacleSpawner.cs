@@ -26,6 +26,13 @@ public class ObstacleSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        BoxCollider2D spawnZone = GetComponent<BoxCollider2D>();
+        Vector3 topScreenWorld = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
+        topScreenWorld = new Vector3(0, topScreenWorld.y, 0);
+        float dist = Vector3.Distance(topScreenWorld, spawnZone.transform.position);
+        spawnAxisY = dist + spawnZone.size.y / 2;
+
+
         StartCoroutine(SpawnDelayCoroutine(horizontalSpawnDelay));
     }
 
