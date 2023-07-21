@@ -31,6 +31,14 @@ public class PlayerShip : MonoBehaviour
         currentShield = maxSheild;
     }
 
+    private void Update()
+    {
+        if(!IsOnScreen())
+        {
+            Die();
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -78,7 +86,21 @@ public class PlayerShip : MonoBehaviour
 
     void Die()
     {
+        Destroy(gameObject);
+    }
 
+    bool IsOnScreen()
+    {
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        if(screenPos.x < 0 || screenPos.x > Screen.width)
+        {
+            return false;
+        }
+        if(screenPos.y > Screen.height || screenPos.y < 0)
+        {
+            return false;
+        }
+        return true;
     }
 
     [SerializeField] LineRenderer lineRenderer;
