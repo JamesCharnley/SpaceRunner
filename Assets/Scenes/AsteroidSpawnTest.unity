@@ -734,7 +734,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -754,8 +754,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9305ab16f5e28742a8f12fa315fcec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strafeSpeed: 3
-  forwardSpeed: 3
+  maxHealth: 100
+  currentHealth: 0
+  maxSheild: 100
+  currentShield: 0
+  strafeSpeed: 20
+  forwardSpeed: 20
+  damagePerMass: 3
 --- !u!212 &1967300800
 SpriteRenderer:
   m_ObjectHideFlags: 0

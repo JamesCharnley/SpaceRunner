@@ -23,10 +23,7 @@ public class ScreenSetup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.touchCount > 0)
-        {
-            Debug.Log(Input.touches[0].position);
-        }
+
     }
 
     void SetupScreenEdges()
