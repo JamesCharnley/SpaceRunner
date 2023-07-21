@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!68 &538006198
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -494,7 +494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!68 &1585446588
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -638,6 +638,7 @@ MonoBehaviour:
   rightScreenEdge: {fileID: 1553900490}
   bottomScreenEdge: {fileID: 1585446588}
   topScreenEdge: {fileID: 538006198}
+  spawnZone: {fileID: 1680604670}
 --- !u!1 &1680604667
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +698,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680604667}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.0555015, y: 0.016968241, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -718,7 +719,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -6.03, y: 17.39}
+  m_Offset: {x: 0, y: 17.39}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -926,6 +927,7 @@ MonoBehaviour:
   forwardSpeed: 30
   damagePerMass: 3
   lineRenderer: {fileID: 987586835}
+  maxDamageMagnitude: 10
 --- !u!212 &1967300800
 SpriteRenderer:
   m_ObjectHideFlags: 0

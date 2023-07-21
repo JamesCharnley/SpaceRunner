@@ -8,6 +8,8 @@ public class ScreenSetup : MonoBehaviour
     [SerializeField] EdgeCollider2D rightScreenEdge;
     [SerializeField] EdgeCollider2D bottomScreenEdge;
     [SerializeField] EdgeCollider2D topScreenEdge;
+
+    [SerializeField] BoxCollider2D spawnZone;
     Camera cam;
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,7 @@ public class ScreenSetup : MonoBehaviour
         cam = Camera.main;
 
         SetupScreenEdges();
+        SetupSpawnZoneCollider();
 
         Physics2D.IgnoreLayerCollision(0, 7);
     }
@@ -67,5 +70,25 @@ public class ScreenSetup : MonoBehaviour
         topPoints.Add(new Vector2(tlLocalCorner.x, tlLocalCorner.y));
         topPoints.Add(new Vector2(trLocalCorner.x, trLocalCorner.y));
         topScreenEdge.SetPoints(topPoints);
+    }
+
+    void SetupSpawnZoneCollider()
+    {
+        // calculate top left screen coord and translate to world position
+        Vector3 tlScreenCorner = new Vector3(0, Screen.height, 0);
+        Vector3 tlWorldCorner = cam.ScreenToWorldPoint(tlScreenCorner);
+
+        // calculate top right screen coord and translate to world position
+        Vector3 trScreenCorner = new Vector3(Screen.width, Screen.height, 0);
+        Vector3 trWorldCorner = cam.ScreenToWorldPoint(trScreenCorner);
+
+        float width = Vector3.Distance(tlWorldCorner, trWorldCorner);
+        spawnZone.size = new Vector2(width, spawnZone.size.y);
+
+        Vector3 topScreenWorld = cam.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
+        topScreenWorld = new Vector3(0, topScreenWorld.y, 0);
+        float dist = Vector3.Distance(topScreenWorld, spawnZone.transform.position);
+
+        spawnZone.offset = new Vector2(0, dist + spawnZone.size.y / 2);
     }
 }
