@@ -61,6 +61,11 @@ public class PlayerShip : MonoBehaviour
                 _amount -= currentShield;
                 currentShield = 0;
             }
+            else
+            {
+                currentShield -= _amount;
+                _amount = 0;
+            }
         }
 
         currentHealth -= _amount;
@@ -76,6 +81,9 @@ public class PlayerShip : MonoBehaviour
 
     }
 
+    [SerializeField] LineRenderer lineRenderer;
+
+    [SerializeField] float maxDamageMagnitude = 10;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Obstacle obs = collision.gameObject.GetComponent<Obstacle>();
@@ -84,11 +92,19 @@ public class PlayerShip : MonoBehaviour
             Rigidbody2D otherRB = collision.gameObject.GetComponent<Rigidbody2D>();
             if(otherRB != null)
             {
+                
+
+                Vector3 force = Vector3.Project(otherRB.velocity, rb.position - otherRB.position);
+                queuedExternalImpulseForce += force * 2;
+
                 float dam = damagePerMass * otherRB.mass;
+                dam = dam * (force.magnitude / maxDamageMagnitude);
+                Debug.Log("Projected force.mag = " + force.magnitude);
+                Debug.Log("Damage = " + dam);
                 DoDamage(dam);
 
-                Vector3 force = Vector3.Project(rb.position - otherRB.position, otherRB.velocity);
-                queuedExternalImpulseForce += force;
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, transform.position + force);
             }
         }
     }
