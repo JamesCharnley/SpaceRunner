@@ -15,10 +15,13 @@ public class PlayerController : MonoBehaviour
 
     Camera cam;
 
+    [SerializeField] SpriteRenderer touchStartVisual;
+
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
+        SetTouchStartOpacity(0);
     }
 
     // Update is called once per frame
@@ -48,9 +51,15 @@ public class PlayerController : MonoBehaviour
                 touchStart = true;
                 touchStartPos = Input.touches[0].position;
                 movementInputDirection = Vector3.zero;
+                SetTouchStartOpacity(0);
             }
             else
             {
+                Vector3 touchStartVisualWorld = cam.ScreenToWorldPoint(touchStartPos);
+                touchStartVisualWorld = new Vector3(touchStartVisualWorld.x, touchStartVisualWorld.y, 0);
+                touchStartVisual.transform.position = touchStartVisualWorld;
+                SetTouchStartOpacity(0.2f);
+
                 Vector3 touchStartWorld = cam.ScreenToWorldPoint(touchStartPos);
                 Vector3 currentTouchToWorld = cam.ScreenToWorldPoint(Input.touches[0].position);
                 float dist = Vector3.Distance(touchStartWorld, currentTouchToWorld);
@@ -76,10 +85,18 @@ public class PlayerController : MonoBehaviour
         {
             touchStart = false;
             movementInputDirection = Vector3.zero;
+            SetTouchStartOpacity(0);
         }
     }
     void MKControls()
     {
         movementInputDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+    }
+
+    void SetTouchStartOpacity(float _value)
+    {
+        Color col = touchStartVisual.color;
+        col.a = _value;
+        touchStartVisual.color = col;
     }
 }
